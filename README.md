@@ -30,6 +30,16 @@ Library Of Alexandria is a web application designed to help book enthusiasts org
 ## API Integration
 
 ---
+## Entity Relationship Diagram
+![Imgur](https://i.imgur.com/B8LDwkr.jpg)
+
+---
+## Component Heirarchy Diagram 
+![Imgur](https://i.imgur.com/fkd6bKF.jpg)
+
+
+
+---
 
 #### **_Getting Started_**
 
