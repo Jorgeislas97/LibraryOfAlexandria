@@ -2,10 +2,10 @@
 
 :root {
   --primary-bg: #000411;
-  --link-color-primary: #aeb7b3;
-  --secondary-bg: #e1efe6;
-  --link-color-secondary: #e1efe6;
-  --primary-button-hover: #160c28;
+  --link-color-primary: white;
+  --secondary-bg: white;
+  --link-color-secondary: white;
+  --primary-button-hover: yellow;
 }
 
 body {
