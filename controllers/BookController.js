@@ -5,6 +5,7 @@ const Book = require('../models/book');
 const BookController = {
   // Create a new book
   create: async (req, res) => {
+    console.log(req.body)
     try {
       const book = new Book(req.body);
       await book.save();
