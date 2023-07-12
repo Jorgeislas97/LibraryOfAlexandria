@@ -1,8 +1,7 @@
-const Review = require('./models/Review');
-const Book = require('./models/Book');
-const User = require('./models/User');
+const { Review, Book, User } = require('../models');
 
 const ReviewController = {
+    
   // Create a new review
   create: async (req, res) => {
     try {
