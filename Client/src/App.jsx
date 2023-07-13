@@ -4,8 +4,9 @@ import Nav from './components/Nav'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import './App.css'
-import Feed from './pages/feed'
 import SignIn from './pages/Signin'
+import Feed from './pages/feed'
+import MyLibrary from './pages/Library'
 
 
 
@@ -51,6 +52,8 @@ const App = () => {
           {/* Part 3.1 -- pass USER down as a PROP */}
           <Route path="/register" element={<Register user={user}/>} />
           <Route path="/feed" element={<Feed user={user}/>} />
+          {/* Adding a route for the library page */}
+          <Route path="/library" element={<MyLibrary user={user}/>} />
         </Routes>
       </main>
     </div>
