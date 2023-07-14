@@ -7,6 +7,7 @@ const Nav = ({ user, handleLogOut }) => {
       <nav>
         <h3>Welcome {user.email}!</h3>
         <Link to="/feed">Feed</Link>
+        <Link to="/library">Library</Link>
         <Link onClick={handleLogOut} to="/">
           Sign Out
         </Link>
@@ -28,7 +29,7 @@ const Nav = ({ user, handleLogOut }) => {
         <div className="logo-wrapper" alt="logo">
           <img
             className="logo"
-            src="https://api.dicebear.com/6.x/icons/svg?icon=book"
+            src="https://i.imgur.com/KfuGZo7.png"
             alt="welcome banner"
           />
           
