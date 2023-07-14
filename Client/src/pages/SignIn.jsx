@@ -25,8 +25,8 @@ const SignIn = (props) => {
     // Step 2.6 -- UPDATE our USER STATE
     props.setUser(payload)
     // Step 2.9 -- NAVIGATE to NEW ROUTE
-    navigate('/feed')
-  }
+    navigate('/Feed')
+  } 
 
   return (
     <div className="signin col">

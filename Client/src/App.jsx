@@ -5,7 +5,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import './App.css'
 import SignIn from './pages/Signin'
-import Feed from './pages/feed'
+import Feed from './pages/Feed'
 import MyLibrary from './pages/Library'
 
 
