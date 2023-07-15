@@ -4,7 +4,7 @@ const BookController = require('../controllers/BookController');
 const { stripToken, verifyToken } = require('../middleware'); 
 
 // Route to get all books
-router.get( stripToken, verifyToken, BookController.GetBooks);
+router.get('/', stripToken, verifyToken, BookController.GetBooks);
 
 // Route to get a book by id
 router.get('/:id', stripToken, verifyToken, BookController.GetBookById);

@@ -1,72 +1,73 @@
-import { useEffect, useState } from 'react';
-import { CheckSession } from '../services/Auth';
-import Client from '../services/api';
+import { useState } from 'react';
+import Client from '../services/api'; 
 
 const Library = () => {
+
   const [books, setBooks] = useState([]);
-  const [formData, setFormData] = useState({
-    title: '',
+
+  const [form, setForm] = useState({
     author: '',
+    title: '',
     genre: ''
   });
 
   const handleChange = (e) => {
-  setFormData({...formData,[e.target.name]:e.target.value})
-  
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    await Client.post('/Books',formData)
-    console.log('formData')
-    setFormData({
-      title: '',
+    e.preventDefault();
+
+    await Client.post('/books', form);
+    
+    setBooks([...books, form]);
+
+    setForm({
       author: '',
+      title: '',
       genre: ''
     });
-  
   }
 
-
   return (
-    <div>
-      <h1>My Library</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2>Add Book</h2>
+
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+
+        <input 
           name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Book title"
-          required
+          value={form.title}
+          onChange={handleChange} 
         />
-        <input
-          type="text"
+         <input
           name="author"
-          value={formData.author}
+          value={form.author}
           onChange={handleChange}
-          placeholder="Author"
-          required
         />
+
         <input
-          type="text"
           name="genre"
-          value={formData.genre}
+          value={form.genre}
           onChange={handleChange}
-          placeholder="Genre"
-          required
         />
-        <button type="submit">Add Book</button>
+
+        <button type="submit">Submit</button>
       </form>
+
+      <h2>Books</h2>
+
       {books.map((book, index) => (
-        <div key={index}>
-          <h2>{book.title}</h2>
-          <h3>{book.author}</h3>
-          <p>{book.genre}</p>
+        <div key={index} style={{ textAlign: 'center' }}>
+          <h3>{book.title}</h3>
         </div>
       ))}
+
     </div>
-  )
+  );
 }
 
 export default Library;
