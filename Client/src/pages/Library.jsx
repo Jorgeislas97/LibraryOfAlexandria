@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CheckSession } from '../services/Auth';
+import Client from '../services/api';
 
 const Library = () => {
   const [books, setBooks] = useState([]);
@@ -11,31 +11,22 @@ const Library = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
+  setFormData({...formData,[e.target.name]:e.target.value})
+  
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = await CheckSession();
-    const book = formData;
-    try {
-      const response = await axios.post('http://localhost:3001/Books', book, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setBooks(prevState => [
-        ...prevState,
-        response.data
-      ]);
-    } catch (error) {
-      console.error(error);
-    }
+    e.preventDefault()
+    await Client.post('/Books',formData)
+    console.log('formData')
+    setFormData({
+      title: '',
+      author: '',
+      genre: ''
+    });
+  
   }
+
 
   return (
     <div>

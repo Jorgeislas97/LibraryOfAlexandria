@@ -1,6 +1,6 @@
 const express = require('express');
 const ReviewController = require('../controllers/ReviewController');
-const { stripToken, verifyToken } = require('../middleware'); // import middleware
+const { stripToken, verifyToken } = require('../middleware'); 
 
 const router = express.Router();
 

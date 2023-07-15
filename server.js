@@ -27,9 +27,9 @@ app.use('/auth', AuthRouter)
 app.use('/Books', BookRouter)
 app.use('/Reviews', ReviewRoute)
 
-app.use('/', (req, res) => {
-  res.send(`Connected!`)
-})
+//app.use('/', (req, res) => {
+ // res.send(`Connected!`)
+//})
 
 app.listen(PORT, () => {
   console.log(`Running Express server on Port ${PORT} . . .`)

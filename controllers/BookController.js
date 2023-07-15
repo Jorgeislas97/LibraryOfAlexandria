@@ -1,65 +1,52 @@
-const Book = require('../models/Book');
+const {Book} = require('../models');
 
-
-
-const BookController = {
-  // Create a new book
-  create: async (req, res) => {
-    console.log(req.body)
-    try {
-      const book = new Book(req.body);
-      await book.save();
-      res.status(201).json(book);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  },
-
-  // Get all books
-  getAll: async (req, res) => {
-    try {
-      const books = await Book.find();
-      res.status(200).json(books);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  // Get a book by ID
-  getById: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const book = await Book.findById(id);
-      if (!book) throw Error('Book not found');
-      res.status(200).json(book);
-    } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
-  },
-
-  // Update a book by ID
-  update: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const book = await Book.findByIdAndUpdate(id, req.body, { new: true });
-      if (!book) throw Error('Book not found');
-      res.status(200).json(book);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  },
-
-  // Delete a book by ID
-  delete: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const deleted = await Book.findByIdAndDelete(id);
-      if (!deleted) throw Error('Book not found');
-      res.status(200).json(deleted);
-    } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
+const createBook = async  (req, res) => {
+  try {
+    const book = await Book.create(req.body)
+    res.send(book)
+  } catch (error) {
+    throw error 
+    
   }
-};
+}
+const UpdateBook = async (req,res) => {
+  try {
+      const book = await Book.findByIdAndUpdate(req.params.book_id, req.body, {new: true})
+      res.send(book)
+  } catch (error) {
+      throw error
+  }
+}
+const GetBooks = async (req,res) => {
+  try {
+      const books = await Book.find({})
+      res.send(books)
+  } catch (error) {
+      throw error
+  }
+}
+const GetBookById = async (req,res) => {
+  try {
+      const book = await Book.findById(req.params.id)
+      res.send(book)
+  } catch (error) {
+      throw error
+  }
+}
+const DeleteBook = async (req,res) => {
+  try {
+      await Book.deleteOne({_id: req.params.book_id})
+      res.send({msg: 'Book has been deleted', payload: req.params.book_id, status: 'OK'})
+  } catch (error) {
+      throw error
+  }
+}
 
-module.exports = BookController;
+module.exports = {
+  createBook,
+  UpdateBook,
+  GetBooks,
+  GetBookById,
+  DeleteBook
+
+}
