@@ -1,72 +1,54 @@
-const { Review, Book, User } = require('../models');
+const { Review } = require('../models');
 
-const ReviewController = {
-    
-  // Create a new review
-  create: async (req, res) => {
-    try {
-      const { book, user, rating, reviewComment } = req.body;
-      
-      // Check if a review by the same user for this book already exists
-      const existingReview = await Review.findOne({ book, user });
-      if (existingReview) {
-        return res.status(400).json({ error: 'User has already reviewed this book.' });
-      }
-
-      const review = new Review({ book, user, rating, reviewComment });
-      await review.save();
-
-      res.status(201).json(review);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  },
-
-// Get all reviews
-getAll: async (req, res) => {
-    try {
-      const reviews = await Review.find().populate('book user');
-      res.status(200).json(reviews);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  // Get a review by ID
-  getById: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const review = await Review.findById(id).populate('book user');
-      if (!review) throw Error('Review not found');
-      res.status(200).json(review);
-    } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
-  },
-
-  // Update a review by ID
-  update: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const review = await Review.findByIdAndUpdate(id, req.body, { new: true });
-      if (!review) throw Error('Review not found');
-      res.status(200).json(review);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  },
-
-  // Delete a review by ID
-  delete: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const deleted = await Review.findByIdAndDelete(id);
-      if (!deleted) throw Error('Review not found');
-      res.status(200).json(deleted);
-    } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
+const CreateReview = async (req, res) => {
+  try {
+    const review = await Review.create(req.body);
+    res.send(review);
+  } catch (error) {
+    throw error;
   }
 };
 
-module.exports = ReviewController;
+const UpdateReview = async (req, res) => {
+  try {
+    const review = await Review.findByIdAndUpdate(req.params.review_id, req.body, { new: true });
+    res.send(review);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const GetReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({});
+    res.send(reviews);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const GetReviewById = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    res.send(review);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const DeleteReview = async (req, res) => {
+  try {
+    await Review.deleteOne({ _id: req.params.review_id });
+    res.send({ msg: 'Review has been deleted', payload: req.params.review_id, status: 'OK' });
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  CreateReview,
+  UpdateReview,
+  GetReviews,
+  GetReviewById,
+  DeleteReview
+};
