@@ -1,6 +1,6 @@
 const {Book} = require('../models');
 
-const createBook = async  (req, res) => {
+const CreateBook = async  (req, res) => {
   try {
     const book = await Book.create(req.body)
     res.send(book)
@@ -43,7 +43,7 @@ const DeleteBook = async (req,res) => {
 }
 
 module.exports = {
-  createBook,
+  CreateBook,
   UpdateBook,
   GetBooks,
   GetBookById,
