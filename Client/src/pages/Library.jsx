@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Client from '../services/api'; 
+import { useState, useEffect } from 'react';
+import Client from '../services/api';
 
 const Library = () => {
 
@@ -10,6 +10,15 @@ const Library = () => {
     title: '',
     genre: ''
   });
+
+  const fetchBooks = async () => {
+    const response = await Client.get('/books');
+    setBooks(response.data);
+  }
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -23,49 +32,49 @@ const Library = () => {
 
     await Client.post('/books', form);
     
-    setBooks([...books, form]);
+    fetchBooks();
 
     setForm({
       author: '',
       title: '',
-      genre: ''
+      genre: '' 
     });
   }
 
   return (
-    <div className="col">
+    <div className="container">
       <h2>Add Book</h2>
 
       <form onSubmit={handleSubmit}>
-
-        Title:<input 
+        <input 
           name="title"
           value={form.title}
-          onChange={handleChange} 
-          className="form-input"
+          onChange={handleChange}
+          placeholder="Title" 
         />
-         Author:<input
+
+        <input
           name="author"
           value={form.author}
           onChange={handleChange}
-          className="form-input"
+          placeholder="Author"
         />
 
-        Genre:<input
+        <input
           name="genre"
           value={form.genre}
           onChange={handleChange}
-          className="form-input"
+          placeholder="Genre"
         />
 
-        <button type="submit" className="form-button">Submit</button>
+        <button type="submit">Submit</button>
       </form>
 
       <h2>Your Library</h2>
 
-      {books.map((book, index) => (
-        <div key={index} className="book-list">
-          <h3 className="book-title">{book.title}</h3>
+      {books.map(book => (
+        <div key={book.id} className="book">
+          <h3>{book.title}</h3>
         </div>
       ))}
 
