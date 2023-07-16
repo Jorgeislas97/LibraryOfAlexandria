@@ -5,7 +5,7 @@ const cors = require('cors')
 
 require('./models/User');
 require('./models/Book');
-require('./models/Review');
+
 
 const AuthRouter = require('./routes/AuthRouter')
 const BookRouter = require('./routes/BookRouter')
@@ -27,9 +27,9 @@ app.use('/auth', AuthRouter)
 app.use('/Books', BookRouter)
 app.use('/Reviews', ReviewRoute)
 
-//app.use('/', (req, res) => {
- // res.send(`Connected!`)
-//})
+app.use('/', (req, res) => {
+res.send(`Connected!`)
+})
 
 app.listen(PORT, () => {
   console.log(`Running Express server on Port ${PORT} . . .`)
