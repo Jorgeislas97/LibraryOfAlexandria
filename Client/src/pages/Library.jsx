@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import Client from '../services/api';
+import Modal from '../components/Modal';
 
 const Library = () => {
 
   const [books, setBooks] = useState([]);
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const [selectedBook, setSelectedBook] = useState(null);
+
   const [form, setForm] = useState({
-    author: '',
+    author: '', 
     title: '',
     genre: ''
   });
@@ -18,7 +23,7 @@ const Library = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, []);
+  }, [])
 
   const handleChange = (e) => {
     setForm({
@@ -31,13 +36,13 @@ const Library = () => {
     e.preventDefault();
 
     await Client.post('/books', form);
-    
+
     fetchBooks();
 
     setForm({
       author: '',
       title: '',
-      genre: '' 
+      genre: ''
     });
   }
 
@@ -46,25 +51,25 @@ const Library = () => {
       <h2>Add Book</h2>
 
       <form onSubmit={handleSubmit}>
-        <input 
+        <input
           name="title"
           value={form.title}
-          onChange={handleChange}
-          placeholder="Title" 
+          onChange={handleChange} 
+          placeholder="Title"
         />
 
         <input
           name="author"
           value={form.author}
           onChange={handleChange}
-          placeholder="Author"
+          placeholder="Author" 
         />
 
         <input
           name="genre"
           value={form.genre}
           onChange={handleChange}
-          placeholder="Genre"
+          placeholder="Genre" 
         />
 
         <button type="submit">Submit</button>
@@ -73,10 +78,20 @@ const Library = () => {
       <h2>Your Library</h2>
 
       {books.map(book => (
-        <div key={book.id} className="book">
-          <h3>{book.title}</h3>
-        </div>
+        <h3 key={book.id} onClick={() => {
+          setOpenModal(true);
+          setSelectedBook(book);
+        }}>
+          {book.title}
+        </h3>
       ))}
+      
+      {openModal && (
+        <Modal 
+          book={selectedBook}
+          onClose={() => setOpenModal(false)}
+        />
+      )}
 
     </div>
   );
