@@ -33,36 +33,39 @@ const Library = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="col">
       <h2>Add Book</h2>
 
       <form onSubmit={handleSubmit}>
 
-        <input 
+        Title:<input 
           name="title"
           value={form.title}
           onChange={handleChange} 
+          className="form-input"
         />
-         <input
+         Author:<input
           name="author"
           value={form.author}
           onChange={handleChange}
+          className="form-input"
         />
 
-        <input
+        Genre:<input
           name="genre"
           value={form.genre}
           onChange={handleChange}
+          className="form-input"
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="form-button">Submit</button>
       </form>
 
-      <h2>Books</h2>
+      <h2>Your Library</h2>
 
       {books.map((book, index) => (
-        <div key={index} style={{ textAlign: 'center' }}>
-          <h3>{book.title}</h3>
+        <div key={index} className="book-list">
+          <h3 className="book-title">{book.title}</h3>
         </div>
       ))}
 
