@@ -232,3 +232,16 @@ form button:disabled {
 .book-title {
   color: '#2c3e50';
 }
+
+
+.modal .label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.book-title, 
+.book-author,
+.book-genre {
+  font-size: 1.2rem;
+  font-weight: normal;
+}

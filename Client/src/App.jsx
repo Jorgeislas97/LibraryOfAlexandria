@@ -7,6 +7,7 @@ import './App.css'
 import SignIn from './pages/Signin'
 import Feed from './pages/Feed'
 import MyLibrary from './pages/Library'
+import Review from './pages/Review'
 
 
 
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/feed" element={<Feed user={user}/>} />
           {/* Adding a route for the library page */}
           <Route path="/library" element={<MyLibrary user={user}/>} />
+          <Route path="/Review" element={<Review user={user}/>} />
         </Routes>
       </main>
     </div>
