@@ -8,8 +8,6 @@ export const GetBooks = async () => {
     throw error
   }
 }
-import Client from './api';
-
 export const GetBook = async (id) => {
     try {
         const res = await Client.get(`/books/${id}`);
@@ -17,4 +15,12 @@ export const GetBook = async (id) => {
     } catch (error) {
         throw error;
     }
+}
+export const DeleteBook = async (id) => {
+  try {
+    const res = await Client.delete(`/books/${id}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+  }
 }

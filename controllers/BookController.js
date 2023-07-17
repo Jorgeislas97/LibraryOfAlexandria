@@ -34,8 +34,9 @@ const GetBookById = async (req,res) => {
   }
 }
 const DeleteBook = async (req,res) => {
+  console.log("we hit the delete book cont")
   try {
-      await Book.deleteOne({_id: req.params.book_id})
+      await Book.deleteOne({_id: req.params.id})
       res.send({msg: 'Book has been deleted', payload: req.params.book_id, status: 'OK'})
   } catch (error) {
       throw error

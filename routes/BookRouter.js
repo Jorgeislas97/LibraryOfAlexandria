@@ -11,6 +11,6 @@ router.post( '/', stripToken, verifyToken, BookController.CreateBook);
 
 router.put('/:id', stripToken, verifyToken, BookController.UpdateBook);
 
-router.delete( '/', stripToken, verifyToken, BookController.DeleteBook);
+router.delete( '/:id', stripToken, verifyToken, BookController.DeleteBook);
 
 module.exports = router;

@@ -90,6 +90,7 @@ const Library = () => {
         <Modal 
           book={selectedBook}
           onClose={() => setOpenModal(false)}
+          fetchBooks={fetchBooks}
         />
       )}
 
