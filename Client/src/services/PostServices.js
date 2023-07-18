@@ -24,3 +24,11 @@ export const DeleteBook = async (id) => {
         throw error;
   }
 }
+export const UpdateBook = async (id) => {
+  try{
+  const res = await Client.delete(`/books/${id}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+  }
+}
