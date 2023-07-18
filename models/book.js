@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const BookSchema = new mongoose.Schema({
 author: {
     type: String,
@@ -16,6 +17,12 @@ author: {
     required: true,
     trim: true,
   },
+  review:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Reviews',
+    Required: true,
+  
+  }],
 }, {
   timestamps: true, 
 });

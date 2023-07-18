@@ -1,8 +1,10 @@
+const {Book} = require('../models');
 const { Review } = require('../models');
 
 const CreateReview = async (req, res) => {
   try {
     const review = await Review.create(req.body);
+    const book = await Book.findById({});
     res.send(review);
   } catch (error) {
     throw error;

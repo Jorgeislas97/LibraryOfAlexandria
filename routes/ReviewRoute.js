@@ -5,7 +5,9 @@ const { stripToken, verifyToken } = require('../middleware');
 const router = express.Router();
 
 
-router.post('/', stripToken, verifyToken, ReviewController.CreateReview); 
+router.post('/',
+// stripToken, verifyToken,
+ ReviewController.CreateReview); 
 router.get('/', stripToken, verifyToken, ReviewController.GetReviews); 
 router.get('/:id', stripToken, verifyToken, ReviewController.GetReviewById); 
 router.put('/:id', stripToken, verifyToken, ReviewController.UpdateReview); 

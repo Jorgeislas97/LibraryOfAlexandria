@@ -24,8 +24,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/auth', AuthRouter)
-app.use('/Books', BookRouter)
-app.use('/Reviews', ReviewRoute)
+app.use('/books', BookRouter)
+app.use('/reviews', ReviewRoute)
 
 app.use('/', (req, res) => {
 res.send(`Connected!`)
