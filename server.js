@@ -5,6 +5,7 @@ const cors = require('cors')
 
 require('./models/User');
 require('./models/Book');
+require('./models/Review')
 
 
 const AuthRouter = require('./routes/AuthRouter')

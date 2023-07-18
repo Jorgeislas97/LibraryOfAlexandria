@@ -26,9 +26,11 @@ export const DeleteBook = async (id) => {
 }
 export const UpdateBook = async (id) => {
   try{
-  const res = await Client.delete(`/books/${id}`);
+  const res = await Client.post(`/books/${id}`);
         return res.data;
     } catch (error) {
         throw error;
   }
 }
+
+

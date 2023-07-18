@@ -1,4 +1,4 @@
-import { DeleteBook } from "../services/PostServices";
+import { DeleteBook,UpdateBook } from "../services/PostServices";
 
 const Modal = ({ book, onClose, fetchBooks }) => {
 
@@ -8,7 +8,11 @@ const deleteBook = async() => {
   onClose()
   
 }
-  
+const updateBook = async () => {
+  await updateBook(book._id)
+  fetchBooks()
+  onClose()
+}
 
 
 
@@ -20,6 +24,8 @@ if(!book) return null;
       Author<h2>{book.author}</h2>
       Genre:<h3>{book.genre}</h3>
       <button onClick={deleteBook}>Delete</button>
+      <button onClick={updateBook}>Edit</button>
+
 
       <button onClick={onClose}>Close</button>
     </div>

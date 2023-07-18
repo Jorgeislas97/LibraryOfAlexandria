@@ -6,11 +6,6 @@ const ReviewSchema = new mongoose.Schema({
     ref: 'Book',
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
   rating: {
     type: Number,
     min: 1,
@@ -21,8 +16,8 @@ const ReviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
-const Review = mongoose.model('Review', ReviewSchema);
-
-module.exports = Review;
+module.exports = ReviewSchema;
