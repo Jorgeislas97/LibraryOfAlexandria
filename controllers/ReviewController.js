@@ -4,7 +4,9 @@ const { Review } = require('../models');
 const CreateReview = async (req, res) => {
   try {
     const review = await Review.create(req.body);
-    const book = await Book.findById({});
+    const book = await Book.findById(req.body.bookId);
+    book.review.push(review._id);
+    await book.save();
     res.send(review);
   } catch (error) {
     throw error;

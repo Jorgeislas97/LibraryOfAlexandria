@@ -18,11 +18,18 @@ const BookDetail = () => {
     const fetchBook = async () => {
       try {
         const response = await Client.get(`/books/${id}`);
-        setBook(response.data);
+        const bookDetails = response.data;
+
+        const reviews = await Promise.all(
+          bookDetails.review.map(reviewId => Client.get(`/reviews/${reviewId}`))
+        );
+        
+        const reviewData = reviews.map(response => response.data);
+        setBook({ ...bookDetails, review: reviewData });
         setEditForm({
-          title: response.data.title,
-          author: response.data.author,
-          genre: response.data.genre,
+          title: bookDetails.title,
+          author: bookDetails.author,
+          genre: bookDetails.genre,
         });
       } catch (error) {
         console.error(error);
@@ -43,8 +50,7 @@ const BookDetail = () => {
     e.preventDefault();
 
     try {
-      const response = await Client.put(`/books/${id}`, editForm);
-      setBook(response.data);
+      await Client.put(`/books/${id}`, editForm);
       setIsEditing(false);
     } catch (error) {
       console.error(error);
@@ -86,9 +92,16 @@ const BookDetail = () => {
         </form>
       ) : (
         <>
-          <p>Title: {book.title}</p>
-          <p>Author: {book.author}</p>
-          <p>Genre: {book.genre}</p>
+          <p>Title: {book?.title}</p>
+          <p>Author: {book?.author}</p>
+          <p>Genre: {book?.genre}</p>
+          <h3>Reviews:</h3>
+          {book?.review.map(review => (
+            <div key={review._id}>
+              <p>Rating: {review.rating}</p>
+              <p>Comment: {review.reviewComment}</p>
+            </div>
+          ))}
           <button onClick={() => setIsEditing(true)}>Edit</button>
         </>
       )}
