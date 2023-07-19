@@ -11,6 +11,10 @@ const BookDetail = () => {
     author: '',
     genre: ''
   });
+  const [reviewForm, setReviewForm] = useState({
+    reviewComment: '',
+    rating: ''
+  });
 
   useEffect(() => {
     if (!id) return;
@@ -52,6 +56,38 @@ const BookDetail = () => {
     try {
       await Client.put(`/books/${id}`, editForm);
       setIsEditing(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleReviewChange = (e) => {
+    setReviewForm({
+      ...reviewForm,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Client.post(`/reviews`, {
+        ...reviewForm,
+        bookId: id
+      });
+
+      if (response.status === 200) {
+        setBook({ 
+          ...book,
+          review: [...book.review, response.data] 
+        });
+
+        setReviewForm({
+          reviewComment: '',
+          rating: ''
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -105,6 +141,28 @@ const BookDetail = () => {
           <button onClick={() => setIsEditing(true)}>Edit</button>
         </>
       )}
+      
+      <h2>Write a Review</h2>
+      <form onSubmit={handleReviewSubmit}>
+        <input
+          name="reviewComment"
+          value={reviewForm.reviewComment}
+          onChange={handleReviewChange}
+          placeholder="Your Review"
+        />
+
+        <input
+          name="rating"
+          value={reviewForm.rating}
+          onChange={handleReviewChange}
+          placeholder="1"
+          type="number"
+          min="1"
+          max="5"
+        />
+
+        <button type="submit">Submit Review</button>
+      </form>
     </div>
   );
 };
