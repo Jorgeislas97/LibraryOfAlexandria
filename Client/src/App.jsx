@@ -46,8 +46,8 @@ const App = () => {
           <Route path="/register" element={<Register user={user} />} />
           <Route path="/feed" element={<Feed user={user} />} />
           <Route path="/library" element={<MyLibrary user={user} />} />
-         
-          <Route path="/books/:id/details" element={<BookDetails />} />
+          <Route path="/books/:id/details" element={<BookDetails user={user} />}/>
+
         </Routes>
       </main>
     </div>

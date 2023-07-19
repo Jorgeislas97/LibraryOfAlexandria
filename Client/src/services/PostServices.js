@@ -10,7 +10,7 @@ export const GetBooks = async () => {
 }
 export const GetBook = async (id) => {
     try {
-        const res = await Client.get(`/books/${id}`);
+      const res = await Client.get(`/books/${id}`);
         return res.data;
     } catch (error) {
         throw error;

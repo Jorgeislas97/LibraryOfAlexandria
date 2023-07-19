@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; 
 import Client from '../services/api';
-import Modal from '../components/Modal';
 
 const Library = () => {
 
   const [books, setBooks] = useState([]);
-
-  const [openModal, setOpenModal] = useState(false);
-
-  const [selectedBook, setSelectedBook] = useState(null);
 
   const [form, setForm] = useState({
     author: '', 
@@ -78,22 +74,10 @@ const Library = () => {
       <h2>Your Library</h2>
 
       {books.map(book => (
-        <h3 key={book.id} onClick={() => {
-          setOpenModal(true);
-          setSelectedBook(book);
-        }}>
-          {book.title}
-        </h3>
-      ))}
-      
-      {openModal && (
-        <Modal 
-          book={selectedBook}
-          onClose={() => setOpenModal(false)}
-          fetchBooks={fetchBooks}
-        />
-      )}
-
+  <h3 key={book.id}>
+    <Link to={`/books/${book._id}/details`}>{book.title}</Link>
+  </h3>
+))}
     </div>
   );
 }
