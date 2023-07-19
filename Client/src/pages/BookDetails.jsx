@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Client from '../services/api';
-import { DeleteBook,UpdateBook } from "../services/PostServices";
+
 
 const BookDetail = () => {
   const { id } = useParams();
@@ -21,17 +21,7 @@ const BookDetail = () => {
 
     fetchBook();
   }, [id]); 
-  const DeleteBook = async() => {
-    await DeleteBook (book._id)
-    fetchBooks()
-    onClose()
-    
-  }
-  const updateBook = async () => {
-    await updateBook(book._id)
-    fetchBooks()
-    onClose()
-  }
+
   
 
   if (book === null) {

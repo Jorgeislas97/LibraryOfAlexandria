@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
 import Client from '../services/api';
+import { DeleteBook, UpdateBook } from "../services/PostServices";
 
 const Library = () => {
 
@@ -42,6 +43,12 @@ const Library = () => {
     });
   }
 
+  // Add deleteBook function
+  const deleteBook = async (id) => {
+    await Client.delete(`/books/${id}`);
+    fetchBooks();
+  }
+
   return (
     <div className="container">
       <h2>Add Book</h2>
@@ -74,9 +81,12 @@ const Library = () => {
       <h2>Your Library</h2>
 
       {books.map(book => (
-  <h3 key={book.id}>
-    <Link to={`/books/${book._id}/details`}>{book.title}</Link>
-  </h3>
+  <div key={book.id}>
+    <h3>
+      <Link to={`/books/${book._id}/details`}>{book.title}</Link>
+    </h3>
+    <button onClick={() => deleteBook(book._id)}>Delete</button> {/* Add Delete button for each book */}
+  </div>
 ))}
     </div>
   );
