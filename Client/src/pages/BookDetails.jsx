@@ -43,7 +43,8 @@ const BookDetail = () => {
     e.preventDefault();
 
     try {
-      await Client.put(`/books/${id}`, editForm);
+      const response = await Client.put(`/books/${id}`, editForm);
+      setBook(response.data);
       setIsEditing(false);
     } catch (error) {
       console.error(error);
