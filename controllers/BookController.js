@@ -11,12 +11,13 @@ const CreateBook = async  (req, res) => {
 }
 const UpdateBook = async (req,res) => {
   try {
-      const book = await Book.findByIdAndUpdate(req.params.book_id, req.body, {new: true})
+      const book = await Book.findByIdAndUpdate(req.params.id, req.body, {new: true})
       res.send(book)
   } catch (error) {
       throw error
   }
 }
+
 const GetBooks = async (req,res) => {
   try {
       const books = await Book.find({})
